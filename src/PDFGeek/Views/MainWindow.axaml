@@ -1,0 +1,276 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PDFGeek.Views.MainWindow"
+        Width="1000" Height="680"
+        MinWidth="860" MinHeight="580"
+        WindowStartupLocation="CenterScreen"
+        Title="PDFGeek"
+        DragDrop.AllowDrop="True">
+
+  <Grid ColumnDefinitions="220,*">
+
+    <!-- ============================ sidebar ============================ -->
+    <Border Grid.Column="0" Background="#111113" BorderBrush="#1f1f22" BorderThickness="0,0,1,0">
+      <DockPanel LastChildFill="True">
+
+        <StackPanel DockPanel.Dock="Top" Margin="20,24,20,18">
+          <TextBlock Text="PDFGeek" FontSize="22" FontWeight="Bold" Foreground="#e5e7eb" />
+          <TextBlock Text="by TechyGeeksHome" FontSize="11" Foreground="#38bdf8" Margin="0,2,0,0" />
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Margin="20,0,20,18" Spacing="12">
+          <Border Background="#0b0b0d" BorderBrush="#1f1f22" BorderThickness="1"
+                  CornerRadius="10" Padding="12">
+            <StackPanel>
+              <TextBlock Text="Your files stay on your PC" FontSize="11" FontWeight="SemiBold"
+                         Foreground="#38bdf8" TextWrapping="Wrap" />
+              <TextBlock Text="Every document is processed locally. No uploads, no accounts, no limits."
+                         FontSize="10" Foreground="#9ca3af" TextWrapping="Wrap" Margin="0,4,0,0" />
+            </StackPanel>
+          </Border>
+
+          <StackPanel Spacing="1">
+            <Button x:Name="CheckUpdatesButton" Classes="sidelink" Content="Check for updates" />
+            <Button x:Name="AboutButton" Classes="sidelink" Content="About PDFGeek" />
+            <TextBlock x:Name="VersionText" Text="v1.0.0" FontSize="10"
+                       Foreground="#6b7280" Margin="0,6,0,0" />
+          </StackPanel>
+        </StackPanel>
+
+        <ListBox x:Name="ToolList" Background="Transparent" BorderThickness="0"
+                 Margin="10,0" SelectedIndex="0">
+          <ListBoxItem Content="Merge" />
+          <ListBoxItem Content="Split" />
+          <ListBoxItem Content="Extract &amp; remove" />
+          <ListBoxItem Content="Rotate &amp; reorder" />
+          <ListBoxItem Content="Watermark" />
+          <ListBoxItem Content="Password" />
+        </ListBox>
+      </DockPanel>
+    </Border>
+
+    <!-- ============================ content ============================ -->
+    <DockPanel Grid.Column="1" LastChildFill="True">
+
+      <!-- status bar -->
+      <Border DockPanel.Dock="Bottom" Background="#111113" BorderBrush="#1f1f22"
+              BorderThickness="0,1,0,0" Padding="20,10">
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock x:Name="StatusText" Grid.Column="0" Text="Ready."
+                     Foreground="#9ca3af" FontSize="12" VerticalAlignment="Center"
+                     TextTrimming="CharacterEllipsis" />
+          <Button x:Name="OpenOutputButton" Grid.Column="1" Classes="ghost"
+                  Content="Show last result" IsEnabled="False" FontSize="11" Padding="10,5" />
+        </Grid>
+      </Border>
+
+      <ScrollViewer Padding="28,24">
+        <Panel>
+
+          <!-- ==================================================== MERGE -->
+          <StackPanel x:Name="MergePanel" Spacing="12">
+            <TextBlock Classes="h1" Text="Merge PDFs" />
+            <TextBlock Classes="sub"
+                       Text="Combine any number of files into one, in the order you set. Drag files onto the window to add them." />
+
+            <Border Classes="card">
+              <StackPanel Spacing="10">
+                <ListBox x:Name="MergeList" Height="230" Background="#0b0b0d"
+                         BorderBrush="#1f1f22" BorderThickness="1" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Button x:Name="MergeAddButton" Classes="ghost" Content="Add files" />
+                  <Button x:Name="MergeUpButton" Classes="ghost" Content="Move up" />
+                  <Button x:Name="MergeDownButton" Classes="ghost" Content="Move down" />
+                  <Button x:Name="MergeRemoveButton" Classes="ghost" Content="Remove" />
+                  <Button x:Name="MergeClearButton" Classes="ghost" Content="Clear" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+
+            <Button x:Name="MergeRunButton" Classes="accent" Content="Merge to a new PDF"
+                    HorizontalAlignment="Left" />
+          </StackPanel>
+
+          <!-- ==================================================== SPLIT -->
+          <StackPanel x:Name="SplitPanel" Spacing="12" IsVisible="False">
+            <TextBlock Classes="h1" Text="Split a PDF" />
+            <TextBlock Classes="sub"
+                       Text="Break one file into separate PDFs - one per page, or in fixed-size chunks." />
+
+            <Border Classes="card">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="label" Text="Source file" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBox x:Name="SplitInput" Grid.Column="0" IsReadOnly="True"
+                           Watermark="Choose a PDF…" />
+                  <Button x:Name="SplitBrowseButton" Grid.Column="1" Classes="ghost"
+                          Content="Browse" Margin="8,0,0,0" />
+                </Grid>
+
+                <TextBlock Classes="label" Text="How to split" />
+                <ComboBox x:Name="SplitMode" SelectedIndex="0" HorizontalAlignment="Stretch">
+                  <ComboBoxItem Content="One file per page" />
+                  <ComboBoxItem Content="Every N pages" />
+                </ComboBox>
+
+                <TextBlock Classes="label" Text="Pages per file" />
+                <TextBox x:Name="SplitEvery" Text="10" IsEnabled="False" />
+              </StackPanel>
+            </Border>
+
+            <Button x:Name="SplitRunButton" Classes="accent" Content="Split into a folder"
+                    HorizontalAlignment="Left" />
+          </StackPanel>
+
+          <!-- ============================================ EXTRACT / REMOVE -->
+          <StackPanel x:Name="ExtractPanel" Spacing="12" IsVisible="False">
+            <TextBlock Classes="h1" Text="Extract or remove pages" />
+            <TextBlock Classes="sub"
+                       Text="Pull selected pages into a new file, or throw them away and keep the rest. Ranges work like a print dialog: 1-3, 5, 9-" />
+
+            <Border Classes="card">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="label" Text="Source file" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBox x:Name="ExtractInput" Grid.Column="0" IsReadOnly="True"
+                           Watermark="Choose a PDF…" />
+                  <Button x:Name="ExtractBrowseButton" Grid.Column="1" Classes="ghost"
+                          Content="Browse" Margin="8,0,0,0" />
+                </Grid>
+
+                <TextBlock Classes="label" Text="Pages" />
+                <TextBox x:Name="ExtractRange" Text="1-3" Watermark="e.g. 1-3, 5, 9-" />
+
+                <TextBlock Classes="label" Text="What to do with them" />
+                <ComboBox x:Name="ExtractMode" SelectedIndex="0" HorizontalAlignment="Stretch">
+                  <ComboBoxItem Content="Keep only these pages" />
+                  <ComboBoxItem Content="Remove these pages" />
+                </ComboBox>
+              </StackPanel>
+            </Border>
+
+            <Button x:Name="ExtractRunButton" Classes="accent" Content="Save as a new PDF"
+                    HorizontalAlignment="Left" />
+          </StackPanel>
+
+          <!-- ============================================ ROTATE / REORDER -->
+          <StackPanel x:Name="RotatePanel" Spacing="12" IsVisible="False">
+            <TextBlock Classes="h1" Text="Rotate or reorder pages" />
+            <TextBlock Classes="sub"
+                       Text="Turn scanned pages the right way up, or rebuild the document in a different order." />
+
+            <Border Classes="card">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="label" Text="Source file" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBox x:Name="RotateInput" Grid.Column="0" IsReadOnly="True"
+                           Watermark="Choose a PDF…" />
+                  <Button x:Name="RotateBrowseButton" Grid.Column="1" Classes="ghost"
+                          Content="Browse" Margin="8,0,0,0" />
+                </Grid>
+
+                <TextBlock Classes="label" Text="Pages to rotate" />
+                <TextBox x:Name="RotateRange" Text="all" Watermark="all, or 1-3, 5" />
+
+                <TextBlock Classes="label" Text="Rotate by" />
+                <ComboBox x:Name="RotateDegrees" SelectedIndex="0" HorizontalAlignment="Stretch">
+                  <ComboBoxItem Content="90° clockwise" />
+                  <ComboBoxItem Content="180°" />
+                  <ComboBoxItem Content="90° anticlockwise" />
+                </ComboBox>
+
+                <Button x:Name="RotateRunButton" Classes="accent" Content="Rotate and save"
+                        HorizontalAlignment="Left" Margin="0,12,0,0" />
+              </StackPanel>
+            </Border>
+
+            <Border Classes="card">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="label" Text="New page order" />
+                <TextBox x:Name="ReorderSpec" Watermark="e.g. 3,1,2 - list every page you want to keep" />
+                <TextBlock Classes="sub"
+                           Text="Pages are written in the order you list them. Anything you leave out is dropped." />
+                <Button x:Name="ReorderRunButton" Classes="accent" Content="Reorder and save"
+                        HorizontalAlignment="Left" Margin="0,12,0,0" />
+              </StackPanel>
+            </Border>
+          </StackPanel>
+
+          <!-- ================================================= WATERMARK -->
+          <StackPanel x:Name="WatermarkPanel" Spacing="12" IsVisible="False">
+            <TextBlock Classes="h1" Text="Watermark" />
+            <TextBlock Classes="sub"
+                       Text="Stamp text across every page - DRAFT, CONFIDENTIAL, a company name, whatever you need." />
+
+            <Border Classes="card">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="label" Text="Source file" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBox x:Name="WatermarkInput" Grid.Column="0" IsReadOnly="True"
+                           Watermark="Choose a PDF…" />
+                  <Button x:Name="WatermarkBrowseButton" Grid.Column="1" Classes="ghost"
+                          Content="Browse" Margin="8,0,0,0" />
+                </Grid>
+
+                <TextBlock Classes="label" Text="Watermark text" />
+                <TextBox x:Name="WatermarkText" Text="DRAFT" />
+
+                <TextBlock Classes="label" Text="Font size" />
+                <TextBox x:Name="WatermarkSize" Text="48" />
+
+                <TextBlock x:Name="WatermarkOpacityLabel" Classes="label" Text="Opacity: 20%" />
+                <Slider x:Name="WatermarkOpacity" Minimum="5" Maximum="100" Value="20"
+                        TickFrequency="5" IsSnapToTickEnabled="True" />
+
+                <CheckBox x:Name="WatermarkDiagonal" Content="Diagonal" IsChecked="True"
+                          Foreground="#e5e7eb" Margin="0,6,0,0" />
+              </StackPanel>
+            </Border>
+
+            <Button x:Name="WatermarkRunButton" Classes="accent" Content="Apply and save"
+                    HorizontalAlignment="Left" />
+          </StackPanel>
+
+          <!-- ================================================== PASSWORD -->
+          <StackPanel x:Name="PasswordPanel" Spacing="12" IsVisible="False">
+            <TextBlock Classes="h1" Text="Add or remove a password" />
+            <TextBlock Classes="sub"
+                       Text="Encrypt a file with AES-128, or take protection off a document you can already open. Removing a password needs the current one - this is not a way around DRM." />
+
+            <Border Classes="card">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="label" Text="Source file" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBox x:Name="PasswordInput" Grid.Column="0" IsReadOnly="True"
+                           Watermark="Choose a PDF…" />
+                  <Button x:Name="PasswordBrowseButton" Grid.Column="1" Classes="ghost"
+                          Content="Browse" Margin="8,0,0,0" />
+                </Grid>
+
+                <TextBlock Classes="label" Text="Action" />
+                <ComboBox x:Name="PasswordMode" SelectedIndex="0" HorizontalAlignment="Stretch">
+                  <ComboBoxItem Content="Add a password" />
+                  <ComboBoxItem Content="Remove the password" />
+                </ComboBox>
+
+                <TextBlock Classes="label" Text="Password" />
+                <TextBox x:Name="PasswordValue" PasswordChar="•" />
+
+                <StackPanel x:Name="PasswordPermissions" Spacing="4" Margin="0,10,0,0">
+                  <CheckBox x:Name="AllowPrinting" Content="Allow printing" IsChecked="True"
+                            Foreground="#e5e7eb" />
+                  <CheckBox x:Name="AllowCopying" Content="Allow copying text"
+                            Foreground="#e5e7eb" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+
+            <Button x:Name="PasswordRunButton" Classes="accent" Content="Save protected copy"
+                    HorizontalAlignment="Left" />
+          </StackPanel>
+
+        </Panel>
+      </ScrollViewer>
+    </DockPanel>
+  </Grid>
+</Window>

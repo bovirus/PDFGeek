@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/logo.png" width="96" height="96" alt="PdfGeek" />
+<img src="docs/logo.png" width="96" height="96" alt="PDFGeek" />
 
-# PdfGeek
+# PDFGeek
 
 **Free, offline PDF tools for Windows. No limits, no uploads, no subscription.**
 
@@ -19,7 +19,7 @@ Every PDF tool on the web wants you to upload your documents to their server, th
 you can do until you pay. iLovePDF stops you at 25 files. Sejda allows three tasks an hour.
 Smallpdf wants a subscription. Acrobat wants £20 a month.
 
-PdfGeek does the same jobs on your own machine. Nothing is uploaded, nothing is counted, and
+PDFGeek does the same jobs on your own machine. Nothing is uploaded, nothing is counted, and
 there is no paid tier to upgrade to.
 
 ## What it does
@@ -37,49 +37,60 @@ Page ranges work the way you already expect from a print dialog: `1-3, 5, 9-` or
 
 ## Install
 
-Download `PdfGeek.exe` from [Releases](../../releases) and run it. That is the whole install.
+Download `PDFGeek.exe` from [Releases](../../releases) and run it. That is the whole install.
 
 It is a single portable executable — no installer, no admin rights, nothing written to the
 registry. Put it on a USB stick if you like. To uninstall, delete the file.
 
-> **Windows will warn you the first time.** PdfGeek is not code-signed, because a certificate
+> **Windows will warn you the first time.** PDFGeek is not code-signed, because a certificate
 > costs money we would rather not put behind a free tool. Click **More info → Run anyway**, or
-> install it with `winget install TechyGeeksHome.PdfGeek` to skip the prompt. The source is
+> install it with `winget install TechyGeeksHome.PDFGeek` to skip the prompt. The source is
 > here so you can check what it does, and every release is built from it.
 
 ## Your files stay yours
 
-- No network code. PdfGeek never opens a socket.
-- No telemetry, no analytics, no crash reporting, no account.
-- Input files are never modified — every operation writes a new file where you choose.
+- **Your documents never leave your machine.** Every operation runs locally. Nothing is
+  uploaded, ever.
+- **No telemetry, no analytics, no crash reporting, no account.**
+- **Input files are never modified** — every operation writes a new file where you choose.
+- **One network call exists, and only when you ask for it.** Clicking *Check for updates*
+  makes a single request to GitHub's public releases API to compare version numbers. It sends
+  no identifiers, no file names and no usage data — GitHub sees what it would see if you opened
+  the releases page in your browser. It never downloads or installs anything on its own; if
+  there is a newer version it just offers to open the page. Never touch the button and PDFGeek
+  makes no network connection at all.
 
 ## Building it yourself
 
 Needs the [.NET 8 SDK](https://dotnet.microsoft.com/download).
 
 ```bash
-git clone https://github.com/techygeekshome/PdfGeek.git
-cd PdfGeek
+git clone https://github.com/techygeekshome/PDFGeek.git
+cd PDFGeek
 
 # run it
-dotnet run --project src/PdfGeek
+dotnet run --project src/PDFGeek
 
 # run the smoke tests (24 checks against real PDFs)
-dotnet run --project tests/PdfGeek.Smoke -c Release
+dotnet run --project tests/PDFGeek.Smoke -c Release
 
 # produce the portable single-file build
-dotnet publish src/PdfGeek -c Release -r win-x64 -o publish
+dotnet publish src/PDFGeek -c Release -r win-x64 -o publish
 ```
 
 ## How it is put together
 
 ```
-src/PdfGeek/
-  Services/PdfOps.cs      every PDF operation, no UI dependencies
-  Services/PageRange.cs   the "1-3, 5, 9-" parser
-  Services/FontSetup.cs   font resolver for the watermark tool
-  Views/MainWindow.axaml  the entire interface
-tests/PdfGeek.Smoke/      console harness that runs every operation on real files
+src/PDFGeek/
+  Services/PdfOps.cs           every PDF operation, no UI dependencies
+  Services/PageRange.cs        the "1-3, 5, 9-" parser
+  Services/FontSetup.cs        font resolver for the watermark tool
+  Views/MainWindow.axaml       the entire interface
+  AppMetadata.cs               name, links and credits for the About window
+src/TechyGeeksHome.Common/     shared across every TechyGeeksHome tool
+  AboutWindow.axaml            the About dialog
+  UpdateChecker.cs             the GitHub releases version check
+tests/PDFGeek.Smoke/           console harness, 29 checks against real files
 ```
 
 `PdfOps` is deliberately free of UI code, so the smoke test compiles the exact same source that
