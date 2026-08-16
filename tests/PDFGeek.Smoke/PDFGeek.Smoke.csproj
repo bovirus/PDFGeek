@@ -22,6 +22,7 @@
   <ItemGroup>
     <Compile Include="../../src/PDFGeek/Services/PdfOps.cs" Link="Services/PdfOps.cs" />
     <Compile Include="../../src/PDFGeek/Services/PageRange.cs" Link="Services/PageRange.cs" />
+    <Compile Include="../../src/PDFGeek/Services/FontSetup.cs" Link="Services/FontSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TechyGeeksHome.Common\TechyGeeksHome.Common.csproj" />

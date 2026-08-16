@@ -14,7 +14,24 @@ var work = Path.Combine(Path.GetTempPath(), "pdfgeek-smoke");
 if (Directory.Exists(work)) Directory.Delete(work, true);
 Directory.CreateDirectory(work);
 
-GlobalFontSettings.FontResolver = new TestFontResolver();
+// On Windows, use the resolver the app actually ships - so this suite exercises the real
+// font path rather than a stand-in. Everywhere else, fall back to whatever TTF the machine has.
+GlobalFontSettings.FontResolver = OperatingSystem.IsWindows()
+    ? new PDFGeek.Services.WindowsFontResolver()
+    : new TestFontResolver();
+
+// Fail fast and legibly if no font could be resolved. Without this, PDFsharp throws a bare
+// NullReferenceException from inside OpenTypeFontFace and it is not remotely obvious why.
+if (GlobalFontSettings.FontResolver!.GetFont(
+        OperatingSystem.IsWindows() ? "arial.ttf" : "regular") is null)
+{
+    Console.Error.WriteLine(
+        "No usable font found, so the watermark test cannot run.\n" +
+        (OperatingSystem.IsWindows()
+            ? "Expected arial.ttf in the Windows font directory."
+            : "Install DejaVu, Liberation or Carlito fonts, e.g. apt install fonts-dejavu-core."));
+    return 2;
+}
 
 var passed = 0;
 var failed = 0;
@@ -260,18 +277,39 @@ Console.WriteLine($"{passed} passed, {failed} failed");
 return failed == 0 ? 0 : 1;
 
 
-/// <summary>Linux stand-in for the app's Windows font resolver, so this can run in CI.</summary>
+/// <summary>
+/// Non-Windows stand-in for the app's font resolver, so this suite runs on Linux and in CI.
+/// Probes a list of candidates rather than hardcoding one path - a missing font surfaces as a
+/// clear message from the startup check rather than a NullReferenceException from deep inside
+/// PDFsharp, which is exactly how this bit failed the first time.
+/// </summary>
 file sealed class TestFontResolver : IFontResolver
 {
-    private const string Regular = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
-    private const string Bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf";
+    private static readonly string[] RegularCandidates =
+    {
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        "/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf",
+        "/System/Library/Fonts/Supplemental/Arial.ttf",
+    };
+
+    private static readonly string[] BoldCandidates =
+    {
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf",
+        "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+    };
 
     public FontResolverInfo? ResolveTypeface(string familyName, bool isBold, bool isItalic)
         => new FontResolverInfo(isBold ? "bold" : "regular");
 
     public byte[]? GetFont(string faceName)
     {
-        var path = faceName == "bold" ? Bold : Regular;
-        return File.Exists(path) ? File.ReadAllBytes(path) : null;
+        foreach (var path in faceName == "bold" ? BoldCandidates : RegularCandidates)
+            if (File.Exists(path))
+                return File.ReadAllBytes(path);
+
+        return null;
     }
 }
