@@ -24,6 +24,12 @@ The online alternatives cap you and then ask for money — 25 files per merge, t
 
 No installer bloat, no bundled offers, no telemetry. 100% free, no Pro tier, no upsells.
 
+## 🎬 See it in action
+
+[![PDFGeek demo video](https://img.youtube.com/vi/rRZ8JNHRGXY/maxresdefault.jpg)](https://www.youtube.com/watch?v=rRZ8JNHRGXY)
+
+A full tour of every tool, in under a minute.
+
 ## 📸 Screenshots
 
 <p float="left">
