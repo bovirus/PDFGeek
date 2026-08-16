@@ -20,7 +20,8 @@ public static class AppMetadata
         GitHubRepo = "PDFGeek",
         ProductUrl = "https://techygeekshome.info/pdfgeek/",
         WebsiteUrl = "https://techygeekshome.info",
-        DonateUrl = "https://techygeekshome.info",
+        DonateUrl = "https://ko-fi.com/techygeekshome",
+        IconUri = "avares://PDFGeek/Assets/pdfgeek.png",
         LicenceLine =
             "Free to use, including at work. No paid tier, no subscription, no upsell. " +
             "If it saved you a subscription, a donation is welcome but never expected.",

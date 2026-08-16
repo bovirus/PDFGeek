@@ -1,111 +1,125 @@
 <div align="center">
 
-<img src="docs/logo.png" width="96" height="96" alt="PDFGeek" />
+<img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/icons/pdfgeek.png" alt="PDFGeek logo" width="96" height="96">
 
 # PDFGeek
 
-**Free, offline PDF tools for Windows. No limits, no uploads, no subscription.**
+**A free, self-contained PDF toolkit for Windows — merge, split, rotate, watermark and protect PDFs without uploading a thing.**
 
-![Version](https://img.shields.io/badge/version-1.0.0-4c9bff)
-![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078d4)
-![License](https://img.shields.io/badge/license-Free-b7791f)
-![Made by TechyGeeksHome](https://img.shields.io/badge/made%20by-TechyGeeksHome-b191f2)
+[![Version](https://img.shields.io/badge/version-1.0.0-4c9bff)](https://github.com/techygeekshome/PDFGeek/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows-0078d4)](#-download--run)
+[![License](https://img.shields.io/badge/license-proprietary%20freeware-b7791f)](LICENSE)
+[![Made by TechyGeeksHome](https://img.shields.io/badge/made%20by-TechyGeeksHome-b191f2)](https://techygeekshome.info)
+[![Support on Ko-fi](https://img.shields.io/badge/support-Ko--fi-ff5e5b)](https://ko-fi.com/techygeekshome)
+
+[Download](#-download--run) · [Features](#-what-it-does) · [Screenshots](#-screenshots) · [Build from source](#-build-from-source) · [License](#-license)
 
 </div>
 
 ---
 
-Every PDF tool on the web wants you to upload your documents to their server, then caps what
-you can do until you pay. iLovePDF stops you at 25 files. Sejda allows three tasks an hour.
-Smallpdf wants a subscription. Acrobat wants £20 a month.
+PDFGeek does the everyday PDF jobs on your own machine, with none of the limits the web tools impose. Merge as many files as you like, split a document into pages or fixed-size chunks, pull pages out or drop them, rotate sideways scans, reorder a document, stamp a watermark across it, and add or remove password protection.
 
-PDFGeek does the same jobs on your own machine. Nothing is uploaded, nothing is counted, and
-there is no paid tier to upgrade to.
+The online alternatives cap you and then ask for money — 25 files per merge, three tasks an hour, a subscription to unlock batch mode. PDFGeek has no caps to lift, because your documents never leave your computer in the first place.
 
-## What it does
+No installer bloat, no bundled offers, no telemetry. 100% free, no Pro tier, no upsells.
 
-| Tool | What it does |
-|---|---|
-| **Merge** | Combine any number of PDFs into one, in the order you set |
-| **Split** | One file per page, or fixed-size chunks |
-| **Extract & remove** | Pull out selected pages, or drop them and keep the rest |
-| **Rotate & reorder** | Fix sideways scans, or rebuild the document in a new order |
-| **Watermark** | Stamp text across every page, with adjustable size, opacity and angle |
-| **Password** | Encrypt with AES-128, or remove protection from a file you can already open |
+## 📸 Screenshots
 
-Page ranges work the way you already expect from a print dialog: `1-3, 5, 9-` or just `all`.
+<p float="left">
+  <img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/screenshots/screenshot-merge.png" width="49%" />
+  <img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/screenshots/screenshot-split.png" width="49%" />
+</p>
+<p float="left">
+  <img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/screenshots/screenshot-extract.png" width="49%" />
+  <img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/screenshots/screenshot-rotate.png" width="49%" />
+</p>
+<p float="left">
+  <img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/screenshots/screenshot-watermark.png" width="49%" />
+  <img src="https://raw.githubusercontent.com/techygeekshome/PDFGeek/main/screenshots/screenshot-password.png" width="49%" />
+</p>
 
-## Install
+## ⬇️ Download & run
 
-Download `PDFGeek.exe` from [Releases](../../releases) and run it. That is the whole install.
+| What it is | Get it |
+| --- | --- |
+| Portable Windows app *(self-contained, .NET 8 / Avalonia UI)* | [**Download PDFGeek**](https://techygeekshome.info/pdfgeek/) — free |
 
-It is a single portable executable — no installer, no admin rights, nothing written to the
-registry. Put it on a USB stick if you like. To uninstall, delete the file.
+A single `.exe`. No installer, no admin rights, nothing written to the registry — run it from anywhere, including a USB stick. To uninstall, delete the file.
 
-> **Windows will warn you the first time.** PDFGeek is not code-signed, because a certificate
-> costs money we would rather not put behind a free tool. Click **More info → Run anyway**, or
-> install it with `winget install TechyGeeksHome.PDFGeek` to skip the prompt. The source is
-> here so you can check what it does, and every release is built from it.
+> **Windows will warn you the first time you run it.** PDFGeek isn't code-signed, because a certificate costs money we'd rather not put behind a free tool. Click **More info → Run anyway**, or install it with `winget install TechyGeeksHome.PDFGeek` to skip the prompt entirely. The source is right here so you can see exactly what it does.
 
-## Your files stay yours
+## ✨ What it does
 
-- **Your documents never leave your machine.** Every operation runs locally. Nothing is
-  uploaded, ever.
-- **No telemetry, no analytics, no crash reporting, no account.**
-- **Input files are never modified** — every operation writes a new file where you choose.
-- **One network call exists, and only when you ask for it.** Clicking *Check for updates*
-  makes a single request to GitHub's public releases API to compare version numbers. It sends
-  no identifiers, no file names and no usage data — GitHub sees what it would see if you opened
-  the releases page in your browser. It never downloads or installs anything on its own; if
-  there is a newer version it just offers to open the page. Never touch the button and PDFGeek
-  makes no network connection at all.
+- 🔗 **Merge** any number of PDFs into one, in the order you set — drag them in, reorder, done.
+- ✂️ **Split** a document into one file per page, or into fixed-size chunks.
+- 📄 **Extract or remove pages** using print-dialog page ranges (`1-3, 5, 9-`).
+- 🔄 **Rotate** sideways scans by 90°, 180° or 270°, on selected pages or the whole document.
+- 🔀 **Reorder** a document by listing the pages in the order you want them.
+- 💧 **Watermark** every page with your own text, at whatever size, opacity and angle you like.
+- 🔐 **Add a password** with AES-128 encryption, with control over printing and copying.
+- 🔓 **Remove a password** from a document you can already open.
+- 🔒 **Private** — your documents are processed locally and never uploaded, with no telemetry and no account.
 
-## Building it yourself
+### On the one network call
 
-Needs the [.NET 8 SDK](https://dotnet.microsoft.com/download).
+Clicking **Check for updates** makes a single request to GitHub's public releases API to compare version numbers. It sends no identifiers, no file names and no usage data, and it never downloads or installs anything on its own — if there's a newer version it just offers to open the page. Don't press it and PDFGeek makes no network connection at all.
 
-```bash
-git clone https://github.com/techygeekshome/PDFGeek.git
-cd PDFGeek
+## 🔧 Build from source
 
-# run it
-dotnet run --project src/PDFGeek
+Requires the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
 
-# run the smoke tests (24 checks against real PDFs)
+```powershell
+dotnet build PDFGeek.sln -c Release
+```
+
+To produce the portable, self-contained `win-x64` build:
+
+```powershell
+dotnet publish src/PDFGeek/PDFGeek.csproj -c Release -r win-x64 --self-contained true -o publish/win-x64
+```
+
+To run the test suite (29 checks against real PDFs):
+
+```powershell
 dotnet run --project tests/PDFGeek.Smoke -c Release
-
-# produce the portable single-file build
-dotnet publish src/PDFGeek -c Release -r win-x64 -o publish
 ```
 
-## How it is put together
+### Project layout
 
-```
-src/PDFGeek/
-  Services/PdfOps.cs           every PDF operation, no UI dependencies
-  Services/PageRange.cs        the "1-3, 5, 9-" parser
-  Services/FontSetup.cs        font resolver for the watermark tool
-  Views/MainWindow.axaml       the entire interface
-  AppMetadata.cs               name, links and credits for the About window
-src/TechyGeeksHome.Common/     shared across every TechyGeeksHome tool
-  AboutWindow.axaml            the About dialog
-  UpdateChecker.cs             the GitHub releases version check
-tests/PDFGeek.Smoke/           console harness, 29 checks against real files
-```
+| Path | What's there |
+| --- | --- |
+| `src/PDFGeek/Services` | Every PDF operation and the page-range parser (no UI dependencies) |
+| `src/PDFGeek/Views` | The Avalonia desktop UI |
+| `src/TechyGeeksHome.Common` | Shared About window and update checker, used across all TechyGeeksHome apps |
+| `tests/PDFGeek.Smoke` | Console harness that runs every operation against real PDFs |
+| `tools/make-icon.py` | Generates the icon set from the brand tokens |
+| `icons/` | App icon assets |
 
-`PdfOps` is deliberately free of UI code, so the smoke test compiles the exact same source that
-ships rather than a copy of it.
+## ☕ Support
 
-Built with [Avalonia](https://avaloniaui.net/) (MIT) and
-[PDFsharp](https://github.com/empira/PDFsharp) (MIT).
+PDFGeek is free and always will be. If it saved you a subscription, you can [buy us a coffee on Ko-fi](https://ko-fi.com/techygeekshome) — welcome, but never expected.
 
-## Licence
+## 🐛 Support & contributing
 
-Free to use, for anything, including at work. If it saved you a subscription, a
-[donation](https://techygeekshome.info) is welcome but never expected.
+Found a bug or have a request? [Open an issue](https://github.com/techygeekshome/PDFGeek/issues) or [get in touch](https://techygeekshome.info/contact/).
+
+## 📄 License
+
+PDFGeek is free to download and use. This is proprietary freeware, not open source — see [LICENSE](LICENSE) for the full terms.
+
+Built with [Avalonia](https://avaloniaui.net/) (MIT) and [PDFsharp](https://github.com/empira/PDFsharp) (MIT).
+
+© 2026 TechyGeeksHome | Andrew Armstrong.
 
 ---
 
 <div align="center">
-Made by <a href="https://techygeekshome.info">TechyGeeksHome</a>
+
+Made with ❤️ by [**TechyGeeksHome**](https://techygeekshome.info)
+
+[Website](https://techygeekshome.info) · [YouTube](https://www.youtube.com/channel/UCtEuFj1SMLiuRoucD1hv8dA) · [X](https://x.com/TechyGeeks1) · [Facebook](https://www.facebook.com/techygeeks.home) · [Instagram](https://www.instagram.com/andrewarmstrongtgh/)
+
 </div>
+
+---

@@ -5,6 +5,8 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 
 namespace TechyGeeksHome.Common;
 
@@ -38,6 +40,7 @@ public partial class AboutWindow : Window
         AppDescription.Text = app.Description;
         LicenceText.Text = app.LicenceLine;
         Monogram.Text = Monogram2(app.Name);
+        TryShowIcon(app.IconUri);
 
         WebsiteButton.Content = app.WebsiteUrl.Replace("https://", string.Empty).TrimEnd('/');
         WebsiteButton.Click += (_, _) => AppInfo.OpenUrl(app.WebsiteUrl);
@@ -76,6 +79,22 @@ public partial class AboutWindow : Window
     }
 
     private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
+
+    /// <summary>Swaps the placeholder monogram for the real app icon when one is supplied.</summary>
+    private void TryShowIcon(string? uri)
+    {
+        if (string.IsNullOrWhiteSpace(uri)) return;
+        try
+        {
+            IconImage.Source = new Bitmap(AssetLoader.Open(new Uri(uri)));
+            IconImage.IsVisible = true;
+            MonogramBadge.IsVisible = false;
+        }
+        catch
+        {
+            // Missing or malformed asset just leaves the monogram in place.
+        }
+    }
 
     /// <summary>Two-letter monogram for the badge: "PDFGeek" becomes "PG".</summary>
     private static string Monogram2(string name)

@@ -1,0 +1,53 @@
+PDFGeek — Licence
+
+Copyright © 2026 TechyGeeksHome | Andrew Armstrong. All rights reserved.
+
+PDFGeek is proprietary freeware. It is not open source.
+
+WHAT YOU MAY DO
+
+You may download, install and use PDFGeek free of charge, for any purpose,
+including commercial use inside a business, on any number of computers. You may
+copy and redistribute the unmodified application in its original form, provided
+you do not charge for it, bundle it with other software or installers, or
+present it as your own work.
+
+WHAT YOU MAY NOT DO
+
+You may not sell, license, rent or otherwise commercially exploit PDFGeek. You
+may not modify, decompile, disassemble or reverse engineer the application, nor
+create derivative works from it. You may not remove or alter any copyright,
+trademark or attribution notices.
+
+SOURCE CODE
+
+The source code in this repository is published so that anyone can see exactly
+what the application does — an unsigned binary asks for trust, and this is how
+that trust is earned. Publishing it does not place it under an open-source
+licence, and the restrictions above apply to the source as well as the compiled
+application.
+
+THIRD-PARTY COMPONENTS
+
+PDFGeek includes the following components, used under their own licences:
+
+  Avalonia    — MIT Licence — https://avaloniaui.net/
+  PDFsharp    — MIT Licence — https://github.com/empira/PDFsharp
+
+Those components remain governed by their own licences, not by this one.
+
+NO WARRANTY
+
+PDFGeek is provided "as is", without warranty of any kind, express or implied,
+including but not limited to the warranties of merchantability, fitness for a
+particular purpose and non-infringement. In no event shall the authors or
+copyright holders be liable for any claim, damages or other liability, whether
+in an action of contract, tort or otherwise, arising from, out of or in
+connection with the software or the use or other dealings in the software.
+
+Keep backups of anything you care about. PDFGeek never modifies your input
+files, but no software is free of defects.
+
+CONTACT
+
+https://techygeekshome.info/contact/

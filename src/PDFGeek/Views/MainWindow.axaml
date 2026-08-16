@@ -5,6 +5,7 @@
         MinWidth="860" MinHeight="580"
         WindowStartupLocation="CenterScreen"
         Title="PDFGeek"
+        Icon="/Assets/pdfgeek.png"
         DragDrop.AllowDrop="True">
 
   <Grid ColumnDefinitions="220,*">
@@ -13,9 +14,12 @@
     <Border Grid.Column="0" Background="#111113" BorderBrush="#1f1f22" BorderThickness="0,0,1,0">
       <DockPanel LastChildFill="True">
 
-        <StackPanel DockPanel.Dock="Top" Margin="20,24,20,18">
-          <TextBlock Text="PDFGeek" FontSize="22" FontWeight="Bold" Foreground="#e5e7eb" />
-          <TextBlock Text="by TechyGeeksHome" FontSize="11" Foreground="#38bdf8" Margin="0,2,0,0" />
+        <StackPanel DockPanel.Dock="Top" Margin="20,24,20,18" Orientation="Horizontal" Spacing="10">
+          <Image Source="/Assets/pdfgeek.png" Width="38" Height="38" VerticalAlignment="Center" />
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="PDFGeek" FontSize="20" FontWeight="Bold" Foreground="#e5e7eb" />
+            <TextBlock Text="by TechyGeeksHome" FontSize="10" Foreground="#38bdf8" Margin="0,1,0,0" />
+          </StackPanel>
         </StackPanel>
 
         <StackPanel DockPanel.Dock="Bottom" Margin="20,0,20,18" Spacing="12">

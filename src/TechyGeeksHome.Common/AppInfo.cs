@@ -29,8 +29,17 @@ public sealed class AppInfo
     public required string ProductUrl { get; init; }
 
     public string WebsiteUrl { get; init; } = "https://techygeekshome.info";
-    public string DonateUrl { get; init; } = "https://techygeekshome.info";
+
+    /// <summary>The standard TechyGeeksHome donation page. Same for every app in the range.</summary>
+    public string DonateUrl { get; init; } = "https://ko-fi.com/techygeekshome";
+
     public string Publisher { get; init; } = "TechyGeeksHome";
+
+    /// <summary>
+    /// Optional Avalonia resource URI for the app icon, e.g. "avares://PDFGeek/Assets/pdfgeek.png".
+    /// When set, the About window shows the real icon instead of a text monogram.
+    /// </summary>
+    public string? IconUri { get; init; }
     public string LicenceLine { get; init; } = "Free to use, including at work. No paid tier, ever.";
 
     public IReadOnlyList<Credit> Credits { get; init; } = Array.Empty<Credit>();
