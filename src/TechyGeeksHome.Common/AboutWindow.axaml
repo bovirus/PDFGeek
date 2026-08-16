@@ -37,6 +37,18 @@
       <Setter Property="Background" Value="Transparent" />
       <Setter Property="TextBlock.Foreground" Value="#0ea5e9" />
     </Style>
+    <Style Selector="Button.kofi">
+      <Setter Property="Background" Value="#ff5e5b" />
+      <Setter Property="Foreground" Value="#ffffff" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Padding" Value="16,9" />
+      <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="Button.kofi:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#e54e4b" />
+      <Setter Property="TextBlock.Foreground" Value="#ffffff" />
+    </Style>
+
     <Style Selector="Button.accent">
       <Setter Property="Background" Value="#38bdf8" />
       <Setter Property="Foreground" Value="#0b0b0d" />
@@ -83,12 +95,21 @@
 
     <Border Background="#111113" BorderBrush="#1f1f22" BorderThickness="1"
             CornerRadius="16" Padding="18">
-      <StackPanel Spacing="2">
-        <Button x:Name="WebsiteButton" Classes="link" Content="techygeekshome.info" />
-        <Button x:Name="ProductButton" Classes="link" Content="Product page" />
-        <Button x:Name="RepoButton" Classes="link" Content="Source code on GitHub" />
-        <Button x:Name="IssuesButton" Classes="link" Content="Report a problem" />
-        <Button x:Name="DonateButton" Classes="link" Content="Support TechyGeeksHome" />
+      <StackPanel Spacing="8">
+        <UniformGrid Columns="2" >
+          <Button x:Name="WebsiteButton" Classes="ghost" Content="Website" Margin="0,0,4,0"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+          <Button x:Name="ProductButton" Classes="ghost" Content="Product page" Margin="4,0,0,0"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+        </UniformGrid>
+        <UniformGrid Columns="2">
+          <Button x:Name="RepoButton" Classes="ghost" Content="Source on GitHub" Margin="0,0,4,0"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+          <Button x:Name="IssuesButton" Classes="ghost" Content="Report a problem" Margin="4,0,0,0"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+        </UniformGrid>
+        <Button x:Name="DonateButton" Classes="kofi" Content="Support us on Ko-fi"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
       </StackPanel>
     </Border>
 

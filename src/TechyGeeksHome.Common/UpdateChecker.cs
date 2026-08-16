@@ -30,6 +30,9 @@ public sealed record UpdateResult(
 /// no file names, no usage data and no telemetry of any kind - GitHub sees an IP address and a
 /// user-agent string, exactly as it would if the user opened the releases page in a browser.
 /// It never downloads or installs anything; finding an update just offers to open the page.
+///
+/// Note for anyone editing this: do NOT add ConfigureAwait(false). Callers are UI code and
+/// need the continuation back on the dispatcher thread. Doing otherwise crashed the app.
 /// </summary>
 public static class UpdateChecker
 {
@@ -50,7 +53,7 @@ public static class UpdateChecker
 
         try
         {
-            using var response = await Http.GetAsync(url, cancellationToken).ConfigureAwait(false);
+            using var response = await Http.GetAsync(url, cancellationToken);
 
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return new UpdateResult(UpdateStatus.NoReleasesYet, current, null, app.ReleasesUrl,
@@ -64,7 +67,7 @@ public static class UpdateChecker
                 return new UpdateResult(UpdateStatus.CouldNotCheck, current, null, app.ReleasesUrl,
                     $"Could not reach GitHub ({(int)response.StatusCode}).");
 
-            var json = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            var json = await response.Content.ReadAsStringAsync(cancellationToken);
             using var document = JsonDocument.Parse(json);
             var root = document.RootElement;
 

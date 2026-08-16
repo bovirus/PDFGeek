@@ -26,22 +26,26 @@
           <Border Background="#0b0b0d" BorderBrush="#1f1f22" BorderThickness="1"
                   CornerRadius="10" Padding="12">
             <StackPanel>
-              <TextBlock Text="Your files stay on your PC" FontSize="11" FontWeight="SemiBold"
+              <TextBlock Text="Files stay on your PC" FontSize="11" FontWeight="SemiBold"
                          Foreground="#38bdf8" TextWrapping="Wrap" />
               <TextBlock Text="Every document is processed locally. No uploads, no accounts, no limits."
                          FontSize="10" Foreground="#9ca3af" TextWrapping="Wrap" Margin="0,4,0,0" />
             </StackPanel>
           </Border>
 
-          <StackPanel Spacing="1">
-            <Button x:Name="CheckUpdatesButton" Classes="sidelink" Content="Check for updates" />
-            <Button x:Name="AboutButton" Classes="sidelink" Content="About PDFGeek" />
+          <StackPanel Spacing="6">
+            <Button x:Name="CheckUpdatesButton" Classes="ghost" Content="Check for updates"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                    FontSize="11" Padding="10,7" />
+            <Button x:Name="AboutButton" Classes="ghost" Content="About"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                    FontSize="11" Padding="10,7" />
             <TextBlock x:Name="VersionText" Text="v1.0.0" FontSize="10"
-                       Foreground="#6b7280" Margin="0,6,0,0" />
+                       Foreground="#6b7280" HorizontalAlignment="Center" Margin="0,2,0,0" />
           </StackPanel>
         </StackPanel>
 
-        <ListBox x:Name="ToolList" Background="Transparent" BorderThickness="0"
+        <ListBox x:Name="ToolList" Classes="tools" Background="Transparent" BorderThickness="0"
                  Margin="10,0" SelectedIndex="0">
           <ListBoxItem Content="Merge" />
           <ListBoxItem Content="Split" />
@@ -68,7 +72,7 @@
         </Grid>
       </Border>
 
-      <ScrollViewer Padding="28,24">
+      <ScrollViewer Padding="28,24" HorizontalScrollBarVisibility="Disabled">
         <Panel>
 
           <!-- ==================================================== MERGE -->

@@ -33,6 +33,21 @@
       <Setter Property="CornerRadius" Value="8" />
     </Style>
 
+    <Style Selector="ListBox.tools ListBoxItem">
+      <Setter Property="Padding" Value="12,9" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Foreground" Value="#9ca3af" />
+    </Style>
+    <Style Selector="ListBox.tools ListBoxItem:selected /template/ ContentPresenter">
+      <Setter Property="Background" Value="#38bdf8" />
+      <Setter Property="TextBlock.Foreground" Value="#0b0b0d" />
+      <Setter Property="TextBlock.FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="ListBox.tools ListBoxItem:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#1a1a1e" />
+      <Setter Property="TextBlock.Foreground" Value="#e5e7eb" />
+    </Style>
+
     <Style Selector="Button.sidelink">
       <Setter Property="Background" Value="Transparent" />
       <Setter Property="BorderThickness" Value="0" />

@@ -43,9 +43,12 @@ No installer bloat, no bundled offers, no telemetry. 100% free, no Pro tier, no 
 
 | What it is | Get it |
 | --- | --- |
-| Portable Windows app *(self-contained, .NET 8 / Avalonia UI)* | [**Download PDFGeek**](https://techygeekshome.info/pdfgeek/) — free |
+| **Installer** *(recommended)* — Start menu entry, desktop shortcut, clean uninstall | [**PDFGeekSetup.exe**](https://github.com/techygeekshome/PDFGeek/releases/latest) |
+| **Portable** — a single `.exe`, nothing installed, runs from a USB stick | [**PDFGeek.exe**](https://github.com/techygeekshome/PDFGeek/releases/latest) |
 
-A single `.exe`. No installer, no admin rights, nothing written to the registry — run it from anywhere, including a USB stick. To uninstall, delete the file.
+The installer needs **no admin rights** and shows no UAC prompt — it installs for the current user by default. It bundles nothing, changes no file associations unless you tick the box, and uninstalls cleanly from Settings → Apps.
+
+Prefer the portable build if you want to run it from a memory stick or leave no trace on the machine. Either way it is the same application.
 
 > **Windows will warn you the first time you run it.** PDFGeek isn't code-signed, because a certificate costs money we'd rather not put behind a free tool. Click **More info → Run anyway**, or install it with `winget install TechyGeeksHome.PDFGeek` to skip the prompt entirely. The source is right here so you can see exactly what it does.
 
@@ -118,7 +121,7 @@ Built with [Avalonia](https://avaloniaui.net/) (MIT) and [PDFsharp](https://gith
 
 Made with ❤️ by [**TechyGeeksHome**](https://techygeekshome.info)
 
-[Website](https://techygeekshome.info) · [YouTube](https://www.youtube.com/channel/UCtEuFj1SMLiuRoucD1hv8dA) · [X](https://x.com/TechyGeeks1) · [Facebook](https://www.facebook.com/techygeeks.home) · [Instagram](https://www.instagram.com/andrewarmstrongtgh/)
+[Website](https://techygeekshome.info) · [YouTube](https://www.youtube.com/channel/UCtEuFj1SMLiuRoucD1hv8dA) · [X](https://x.com/TechyGeeks1) · [Instagram](https://www.instagram.com/andrewarmstrongtgh/)
 
 </div>
 

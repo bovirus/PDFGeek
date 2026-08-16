@@ -81,11 +81,41 @@ public partial class MainWindow : Window
 
         AddHandler(DragDrop.DropEvent, OnDrop);
         AddHandler(DragDrop.DragOverEvent, OnDragOver);
+
+        LoadStartupFiles(Program.StartupFiles);
+    }
+
+    /// <summary>
+    /// Files passed on the command line land in the merge list, and the first one also fills in
+    /// every single-file tool, so "Open with" drops you straight into a usable state.
+    /// </summary>
+    private void LoadStartupFiles(IReadOnlyList<string> files)
+    {
+        if (files.Count == 0) return;
+
+        foreach (var path in files) _mergeItems.Add(new MergeItem(path));
+
+        foreach (var box in new[] { SplitInput, ExtractInput, RotateInput, WatermarkInput, PasswordInput })
+            box.Text = files[0];
+
+        Status(files.Count == 1
+            ? $"Opened {Path.GetFileName(files[0])}"
+            : $"Opened {files.Count} files.");
     }
 
     // ------------------------------------------------------------ about / updates
 
-    private void ShowAbout() => new AboutWindow(AppMetadata.Info).ShowDialog(this);
+    private void ShowAbout()
+    {
+        try
+        {
+            new AboutWindow(AppMetadata.Info).ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Status($"Could not open About: {ex.Message}");
+        }
+    }
 
     /// <summary>
     /// Checks GitHub for a newer release. Only ever runs when the user clicks - PDFGeek makes
@@ -106,6 +136,10 @@ public partial class MainWindow : Window
                 OpenOutputButton.IsEnabled = false;
                 AppInfo.OpenUrl(result.ReleaseUrl ?? AppMetadata.Info.ReleasesUrl);
             }
+        }
+        catch (Exception ex)
+        {
+            Status($"Could not check for updates: {ex.Message}");
         }
         finally
         {

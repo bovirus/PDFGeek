@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -42,7 +41,6 @@ public partial class AboutWindow : Window
         Monogram.Text = Monogram2(app.Name);
         TryShowIcon(app.IconUri);
 
-        WebsiteButton.Content = app.WebsiteUrl.Replace("https://", string.Empty).TrimEnd('/');
         WebsiteButton.Click += (_, _) => AppInfo.OpenUrl(app.WebsiteUrl);
         ProductButton.Click += (_, _) => AppInfo.OpenUrl(app.ProductUrl);
         RepoButton.Click += (_, _) => AppInfo.OpenUrl(app.RepositoryUrl);
@@ -77,8 +75,6 @@ public partial class AboutWindow : Window
             }
         }
     }
-
-    private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
 
     /// <summary>Swaps the placeholder monogram for the real app icon when one is supplied.</summary>
     private void TryShowIcon(string? uri)
