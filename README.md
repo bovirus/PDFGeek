@@ -56,7 +56,9 @@ The installer needs **no admin rights** and shows no UAC prompt — it installs 
 
 Prefer the portable build if you want to run it from a memory stick or leave no trace on the machine. Either way it is the same application.
 
-> **Windows will warn you the first time you run it.** PDFGeek isn't code-signed, because a certificate costs money we'd rather not put behind a free tool. Click **More info → Run anyway**, or install it with `winget install TechyGeeksHome.PDFGeek` to skip the prompt entirely. The source is right here so you can see exactly what it does.
+> **Windows will warn you the first time you run it.** PDFGeek isn't code-signed, because a certificate costs money we'd rather not put behind a free tool. Click **More info → Run anyway**. Every release publishes SHA256 checksums for both files so you can verify what you downloaded, and the source is right here so you can see exactly what it does.
+>
+> A winget package is sitting in Microsoft's community review queue. Until a moderator approves it, `winget install TechyGeeksHome.PDFGeek` won't find anything — this note will go when it does.
 
 ## ✨ What it does
 
