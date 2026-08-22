@@ -8,7 +8,7 @@
 
 [![Version](https://img.shields.io/badge/version-1.0.0-4c9bff)](https://github.com/techygeekshome/PDFGeek/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows-0078d4)](#-download--run)
-[![License](https://img.shields.io/badge/license-proprietary%20freeware-b7791f)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPL--3.0-3fb950)](LICENSE)
 [![Made by TechyGeeksHome](https://img.shields.io/badge/made%20by-TechyGeeksHome-b191f2)](https://techygeekshome.info)
 [![Support on Ko-fi](https://img.shields.io/badge/support-Ko--fi-ff5e5b)](https://ko-fi.com/techygeekshome)
 
@@ -115,9 +115,13 @@ PDFGeek is free and always will be. If it saved you a subscription, you can [buy
 
 Found a bug or have a request? [Open an issue](https://github.com/techygeekshome/PDFGeek/issues) or [get in touch](https://techygeekshome.info/contact/).
 
+Pull requests are welcome. PDFGeek is open source under the GPL-3.0, so improvements can be taken straight in — see [CONTRIBUTING.md](CONTRIBUTING.md) for how contributions are licensed and what is most useful.
+
 ## 📄 License
 
-PDFGeek is free to download and use. This is proprietary freeware, not open source — see [LICENSE](LICENSE) for the full terms.
+PDFGeek is free software, licensed under the [GNU General Public License v3.0](LICENSE). You are free to use it, study it, change it and pass it on. Anything you distribute that is built from this code has to carry the same freedoms, which is what keeps it free for everyone downstream.
+
+The PDFGeek name, logo and TechyGeeksHome branding are not covered by that licence and remain ours.
 
 Built with [Avalonia](https://avaloniaui.net/) (MIT) and [PDFsharp](https://github.com/empira/PDFsharp) (MIT).
 
