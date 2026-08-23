@@ -6,7 +6,7 @@
 
 **A free, self-contained PDF toolkit for Windows — merge, split, rotate, watermark and protect PDFs without uploading a thing.**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-4c9bff)](https://github.com/techygeekshome/PDFGeek/releases)
+[![Version](https://img.shields.io/github/v/release/techygeekshome/PDFGeek?label=version&color=4c9bff)](https://github.com/techygeekshome/PDFGeek/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows-0078d4)](#-download--run)
 [![License](https://img.shields.io/badge/license-GPL--3.0-3fb950)](LICENSE)
 [![Made by TechyGeeksHome](https://img.shields.io/badge/made%20by-TechyGeeksHome-b191f2)](https://techygeekshome.info)
