@@ -21,7 +21,16 @@
 #define AppURL         "https://techygeekshome.info"
 #define AppSupportURL  "https://github.com/techygeekshome/PDFGeek/issues"
 #define AppUpdatesURL  "https://github.com/techygeekshome/PDFGeek/releases"
+#define FirstYear      "2026"
 #define CurrentYear    GetDateTimeString('yyyy','','')
+
+; Suggested by bovirus: from 2027 onward show a range rather than only the
+; current year, so the copyright reads 2026-2027 and so on.
+#if CurrentYear == FirstYear
+  #define CopyrightYears FirstYear
+#else
+  #define CopyrightYears FirstYear + "-" + CurrentYear
+#endif
 
 #include "PDFGeek_languages.iss"
 
@@ -36,7 +45,7 @@ AppPublisherURL={#AppURL}
 AppSupportURL={#AppSupportURL}
 AppUpdatesURL={#AppUpdatesURL}
 
-AppCopyright={#CurrentYear} {#AppPublisher}
+AppCopyright={#CopyrightYears} {#AppPublisher}
 
 VersionInfoVersion={#AppVersion}
 VersionInfoCompany={#AppPublisher}
