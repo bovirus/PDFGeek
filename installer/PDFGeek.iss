@@ -1,36 +1,61 @@
 ; PDFGeek installer - Inno Setup script
 ;
-; Build it with:   iscc installer\PDFGeek.iss
+; Build it with:   iscc installer\PDFGeek.iss and Inno Setup 7
 ; Or just run build.ps1 from the repo root, which publishes and then compiles this.
 ;
 ; Design decisions worth knowing:
-;   * PrivilegesRequired=lowest - installs per-user by default, so NO UAC prompt. An unsigned
-;     installer that also demands elevation is exactly the combination that makes people
-;     cancel. Admins can still do a machine-wide install; the dialog offers it.
+;   * PrivilegesRequired=lowest - installs per-user by default, so NO UAC prompt.
+;     An unsigned installer that also demands elevation is exactly the combination that makes people cancel.
+;     Admins can still do a machine-wide install; the dialog offers it.
 ;   * No bundled anything. No toolbars, no offers, no third-party installers, ever.
-;   * The .pdf shell integration is an OPTIONAL task and is OFF by default. Hijacking someone's
-;     PDF association without asking is the behaviour we are positioning against.
+;   * The .pdf shell integration is an OPTIONAL task and is OFF by default. 
+;     Hijacking someone's PDF association without asking is the behaviour we are positioning against.
 
 #define AppName        "PDFGeek"
-#define AppVersion     "1.0.0"
+#define AppSourceDir   "..\publish"
+#define AppExeName     "PDFGeek.exe"
+
+#define AppVersion() GetVersionComponents(AppSourceDir + "\" + AppExeName, Local[0], Local[1], Local[2], Local[3]), str(Local[0]) + "." + str(Local[1]) + "." + str(Local[2])
+
 #define AppPublisher   "TechyGeeksHome"
 #define AppURL         "https://techygeekshome.info"
 #define AppSupportURL  "https://github.com/techygeekshome/PDFGeek/issues"
 #define AppUpdatesURL  "https://github.com/techygeekshome/PDFGeek/releases"
-#define AppExeName     "PDFGeek.exe"
+#define CurrentYear    GetDateTimeString('yyyy','','')
+
+#include "PDFGeek_languages.iss"
 
 [Setup]
 AppId={{7DF6A1C2-4E3B-4F0A-9B5E-2C81D4F60A37}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
+
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppSupportURL}
 AppUpdatesURL={#AppUpdatesURL}
+
+AppCopyright={#CurrentYear} {#AppPublisher}
+
 VersionInfoVersion={#AppVersion}
 VersionInfoCompany={#AppPublisher}
-VersionInfoDescription={#AppName} Setup
+VersionInfoDescription={#AppName} installer
+
+ShowLanguageDialog=yes
+UsePreviousLanguage=no
+LanguageDetectionMethod=uilanguage
+WizardStyle=modern
+
+UninstallDisplayIcon={app}\{#AppExeName}
+UninstallDisplayName={#AppName}
+
+LicenseFile=..\LICENSE.rtf
+
+SetupIconFile=..\icons\pdfgeek.ico
+
+OutputDir=..\dist
+OutputBaseFilename=PDFGeekSetup
 
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
@@ -42,29 +67,18 @@ AllowNoIcons=yes
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline dialog
 
-LicenseFile=..\LICENSE
-OutputDir=..\dist
-OutputBaseFilename=PDFGeekSetup
-SetupIconFile=..\icons\pdfgeek.ico
-UninstallDisplayIcon={app}\{#AppExeName}
-UninstallDisplayName={#AppName}
-
 Compression=lzma2/max
 SolidCompression=yes
-WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0
 
-[Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
-
 [Tasks]
-Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Shortcuts:"
-Name: "pdfcontextmenu"; Description: "Add ""Open with PDFGeek"" to the right-click menu for PDF files"; GroupDescription: "Integration:"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopShortcut}"; GroupDescription: "Shortcuts:"
+Name: "pdfcontextmenu"; Description: "{cm:AddOpenWithPDFGeek}"; GroupDescription: "Integration:"; Flags: unchecked
 
 [Files]
-Source: "..\publish\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceDir}\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSE";              DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreversion
 Source: "..\README.md";            DestDir: "{app}"; DestName: "README.md";  Flags: ignoreversion
 
