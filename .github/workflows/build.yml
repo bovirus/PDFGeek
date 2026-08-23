@@ -1,0 +1,61 @@
+# Builds PDFGeek on every push and pull request.
+#
+# Together with release.yml this is what makes a published binary a verifiable,
+# automated build of the source in this repository, rather than something a
+# maintainer compiled on their own machine and uploaded.
+#
+# The installer script is compiled here too. It is not kept as an artefact - the
+# point is to catch a broken installer/PDFGeek.iss in a pull request, before it
+# lands on main and breaks a release.
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore PDFGeek.sln
+
+      - name: Build
+        run: dotnet build PDFGeek.sln --configuration Release --no-restore
+
+      # The smoke harness exits non-zero on any failure, which fails the job.
+      - name: Test
+        run: dotnet run --project tests/PDFGeek.Smoke --configuration Release --no-build
+
+      # The installer needs a published exe to point at, and reads the version
+      # number out of it, so publish before compiling the script.
+      - name: Publish
+        run: dotnet publish src/PDFGeek/PDFGeek.csproj --configuration Release --output publish
+
+      - name: Compile the installer script
+        shell: pwsh
+        run: |
+          $iscc = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path $iscc)) {
+            Write-Host 'Inno Setup not on the runner image - installing it.'
+            choco install innosetup --no-progress -y
+          }
+          if (-not (Test-Path $iscc)) { throw "ISCC.exe not found at $iscc" }
+          & $iscc 'installer\PDFGeek.iss'
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE" }
+          if (-not (Test-Path dist\PDFGeekSetup.exe)) { throw 'PDFGeekSetup.exe was not produced.' }

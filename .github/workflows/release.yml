@@ -1,0 +1,82 @@
+# Produces the published binaries and attaches them to a GitHub release.
+#
+# Triggered by pushing a version tag, e.g.:
+#     git tag v1.0.1 && git push origin v1.0.1
+#
+# Two downloads are published:
+#   PDFGeekSetup.exe   installer, per-user by default so no UAC prompt,
+#                      English and Italian, optional "Open with PDFGeek" verb
+#   PDFGeek.exe        portable, self-contained, nothing to install
+#
+# SHA-256 hashes are published alongside them so a download can be verified.
+# The binaries are not code signed. Windows SmartScreen will warn on first run;
+# verifying the published hash is the way to check what you downloaded.
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run the smoke tests
+        run: dotnet run --project tests/PDFGeek.Smoke --configuration Release
+
+      # The csproj already pins win-x64, self-contained and single-file, so this
+      # matches exactly what build.ps1 produces locally.
+      - name: Publish portable build
+        run: dotnet publish src/PDFGeek/PDFGeek.csproj --configuration Release --output publish
+
+      - name: Build the installer
+        shell: pwsh
+        run: |
+          $iscc = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path $iscc)) {
+            Write-Host 'Inno Setup not on the runner image - installing it.'
+            choco install innosetup --no-progress -y
+          }
+          if (-not (Test-Path $iscc)) { throw "ISCC.exe not found at $iscc" }
+          & $iscc 'installer\PDFGeek.iss'
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE" }
+
+      - name: Collect artefacts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item publish/PDFGeek.exe dist/PDFGeek.exe -Force
+          if (-not (Test-Path dist/PDFGeekSetup.exe)) { throw 'PDFGeekSetup.exe was not produced.' }
+
+          # Publish hashes so anyone can verify what they downloaded.
+          Get-ChildItem dist/*.exe | ForEach-Object {
+            $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()
+            "$hash  $($_.Name)" | Out-File -FilePath dist/SHA256SUMS.txt -Append -Encoding utf8
+            Write-Host "$hash  $($_.Name)"
+          }
+
+      - name: Upload build artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdfgeek-${{ github.ref_name }}
+          path: dist/*
+
+      - name: Attach to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
