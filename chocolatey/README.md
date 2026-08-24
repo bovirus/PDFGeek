@@ -1,7 +1,24 @@
 # Chocolatey package — pdfgeek
 
-PDFGeek has no Chocolatey presence yet. This is the package source for it, kept in the
-repository so `packageSourceUrl` points somewhere real and a new version is a two-command job.
+**PDFGeek is already on Chocolatey.** Version 1.0.0 was pushed on 17 August 2026 under the
+`techygeekshome` maintainer account, and as of 24 August it is **still sitting in the moderation
+queue** — the package page carries the "versions of this package awaiting moderation" banner.
+
+What did not exist was the package *source*. The nuspec and scripts lived only on a local
+machine, so `packageSourceUrl` had nowhere real to point and a new version meant reconstructing
+them from memory. That is what this folder fixes.
+
+## Do not push another version yet
+
+1.0.0 has not cleared moderation. Pushing 1.0.1 on top of it puts two versions of a brand-new
+package in the same queue, which slows review down rather than speeding it up, and moderators
+are entitled to be annoyed by it.
+
+**Check the moderation comments on the package page first.** A first-time package almost always
+comes back with review notes, and an unanswered note is the usual reason one sits for weeks.
+DiskGeek's has been queued since 6 August for what looks like exactly that.
+
+Once 1.0.0 is approved, or a moderator asks for changes, this folder is what you edit.
 
 ## What it does
 
@@ -18,10 +35,7 @@ PDFGeek is GPL-3.0, so the nuspec uses the modern `<license type="expression">` 
 than the deprecated `licenseUrl`. DiskGeek and USP are proprietary freeware and have no SPDX
 expression available, which is why theirs still use `licenseUrl`.
 
-## First submission
-
-The first push of a brand-new package goes into Chocolatey's moderation queue and is reviewed by
-a human, so expect a few days and possibly a round of comments.
+## Pushing, when the time comes
 
 ```powershell
 # from this folder
@@ -39,7 +53,7 @@ choco push pdfgeek.1.0.1.nupkg --source https://push.chocolatey.org/
    in `tools/chocolateyinstall.ps1`.
 3. Bump `<version>` and `<releaseNotes>` in the nuspec.
 4. `choco pack`, then install locally from the nupkg and check the uninstall path works too.
-5. `choco push`.
+5. Confirm nothing is still queued, then `choco push`.
 
 The 1.0.1 values currently in place:
 
