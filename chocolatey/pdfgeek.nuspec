@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>pdfgeek</id>
+    <version>1.0.1</version>
+    <title>PDFGeek</title>
+    <authors>TechyGeeksHome</authors>
+    <owners>techygeekshome</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">GPL-3.0-or-later</license>
+    <projectUrl>https://techygeekshome.info/pdfgeek/</projectUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/techygeekshome/PDFGeek@d086769941855dfa4d86f54a02d261c5b998fd19/icons/pdfgeek.png</iconUrl>
+    <description>PDFGeek does the PDF jobs the online tools charge for, entirely on your own machine.
+Nothing is uploaded, there are no file-count caps and there is no hourly throttle.
+
+* Merge any number of PDFs, in an order you set
+* Split into one file per page, or into fixed-size chunks
+* Extract or remove pages, with print-dialog-style ranges
+* Rotate by 90, 180 or 270 degrees, whole document or selected pages
+* Reorder a document by listing the pages you want
+* Watermark every page, with control over size, opacity and angle
+* Encrypt with AES-128, choosing whether printing and text-copying stay allowed
+* Remove a password from a document you can already open
+
+The only network call the application makes is the update check, and that only runs when you
+press the button. Free at home and at work, with no Pro tier, no adverts and no bundled offers.
+
+Open source under GPL-3.0. The .NET 8 runtime is bundled, so there is nothing to install first.</description>
+    <summary>Free offline PDF toolkit for Windows - merge, split, extract, rotate, watermark, lock</summary>
+    <releaseNotes>https://github.com/techygeekshome/PDFGeek/releases/tag/v1.0.1</releaseNotes>
+    <copyright>Copyright (c) 2026 TechyGeeksHome</copyright>
+    <tags>pdf pdf-editor merge split watermark encryption offline windows foss admin</tags>
+    <projectSourceUrl>https://github.com/techygeekshome/PDFGeek</projectSourceUrl>
+    <packageSourceUrl>https://github.com/techygeekshome/PDFGeek</packageSourceUrl>
+    <docsUrl>https://techygeekshome.info/pdfgeek/</docsUrl>
+    <bugTrackerUrl>https://github.com/techygeekshome/PDFGeek/issues</bugTrackerUrl>
+  </metadata>
+</package>
