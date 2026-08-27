@@ -50,6 +50,9 @@ public partial class AboutWindow : Window
         CloseButton.Click += (_, _) => Close();
         CheckUpdatesButton.Click += async (_, _) => await CheckAsync();
 
+        BuildFamilyList(app.GitHubRepo);
+        FamilyHubButton.Click += (_, _) => AppInfo.OpenUrl(Family.HubUrl);
+
         if (app.Credits.Count == 0)
         {
             CreditsSection.IsVisible = false;
@@ -73,6 +76,55 @@ public partial class AboutWindow : Window
                 button.Click += (_, _) => AppInfo.OpenUrl(url);
                 CreditsList.Children.Add(button);
             }
+        }
+    }
+
+    /// <summary>
+    /// Renders the rest of the range, with this app removed from its own list.
+    ///
+    /// The list is data in <see cref="Family"/> rather than markup here, so adding a tool to
+    /// the range is one edit rather than one edit per application. Every row opens the product
+    /// page in the browser; nothing is downloaded and nothing phones home to build this - the
+    /// list ships inside the executable.
+    /// </summary>
+    private void BuildFamilyList(string ownRepo)
+    {
+        foreach (var app in Family.Others(ownRepo))
+        {
+            var name = new TextBlock
+            {
+                Text = app.Name,
+                FontSize = 12.5,
+                FontWeight = FontWeight.SemiBold,
+                Foreground = new SolidColorBrush(Color.Parse("#38bdf8"))
+            };
+
+            var blurb = new TextBlock
+            {
+                Text = app.Blurb,
+                FontSize = 11.5,
+                Foreground = new SolidColorBrush(Color.Parse("#9ca3af")),
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            var stack = new StackPanel { Spacing = 1 };
+            stack.Children.Add(name);
+            stack.Children.Add(blurb);
+
+            var button = new Button
+            {
+                Content = stack,
+                Background = Brushes.Transparent,
+                BorderThickness = default,
+                Padding = new Avalonia.Thickness(0, 5),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+
+            var url = app.ProductUrl;
+            button.Click += (_, _) => AppInfo.OpenUrl(url);
+            FamilyList.Children.Add(button);
         }
     }
 
